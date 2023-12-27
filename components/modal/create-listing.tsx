@@ -4,6 +4,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
@@ -13,7 +14,7 @@ const CreateListing = () => {
   const { isOpen, onClose } = useCreateListingModal();
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className=" bg-white p-0 w-full">
+      <DialogContent className=" bg-gray-200 p-0 w-full">
         <DialogHeader>
           <DialogTitle>Welcome user, let us create our listing</DialogTitle>
           <DialogDescription>
@@ -23,6 +24,11 @@ const CreateListing = () => {
           </DialogDescription>
         </DialogHeader>
         <div>THis is the</div>
+        <DialogFooter>
+            <div className=" font-bold text-xl font-serif ">
+             The fucking end
+            </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

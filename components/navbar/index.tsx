@@ -8,7 +8,7 @@ const Navbar = () => {
   const { onOpen } = useCreateListingModal();
 
   return (
-    <div className=" w-full p-4 bb-[4px] border mb-3 bg-slate-200 rounded-md">
+    <div className=" w-full p-4  border-b-[4px] border-gray-500 mb-3 bg-slate-200 rounded-md">
       <Button variant="outline" onClick={onOpen}>
         Open
       </Button>
