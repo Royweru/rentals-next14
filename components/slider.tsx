@@ -8,14 +8,7 @@ const Slider = () => {
     <Carousel>
         <CarouselContent>
           <CarouselItem>
-            <div className=" w-full h-[350px]">
-               <Image
-                  fill
-                  src={"/images/slide1.jpeg"}  
-                  alt=""
-                  className=" rounded" 
-                  />              
-            </div>
+            Hey there
           </CarouselItem>
         </CarouselContent>
       </Carousel>
