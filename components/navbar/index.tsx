@@ -1,16 +1,19 @@
-"use client"
+"use client";
 
-import React from 'react'
-import { Button } from '../ui/button'
-import useCreateListingModal from '@/hooks/use-create-listing'
+import React from "react";
+import { Button } from "../ui/button";
+import useCreateListingModal from "@/hooks/use-create-listing";
 
 const Navbar = () => {
-    const {onOpen} =  useCreateListingModal()
-  return (
-    <div>
-        <Button variant="outline" onClick={onOpen}>Open</Button>
-    </div>
-  )
-}
+  const { onOpen } = useCreateListingModal();
 
-export default Navbar
+  return (
+    <div className=" w-full p-4 bb-[4px] border mb-3 bg-slate-200 rounded-md">
+      <Button variant="outline" onClick={onOpen}>
+        Open
+      </Button>
+    </div>
+  );
+};
+
+export default Navbar;
