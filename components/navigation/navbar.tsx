@@ -62,6 +62,8 @@ const Navbar = () => {
                   Home
                 </a>
               </li>
+
+
               <li>
                 <button
                   id="dropdownNavbarLink"
@@ -189,6 +191,9 @@ const Navbar = () => {
                   </div>
                 </div>
               </li>
+
+
+
               <li>
                 <a
                   href="#"
@@ -197,6 +202,8 @@ const Navbar = () => {
                   Services
                 </a>
               </li>
+
+
               <li>
                 <a
                   href="#"
@@ -205,6 +212,8 @@ const Navbar = () => {
                   Blog
                 </a>
               </li>
+
+
               <li>
                 <a
                   href="#"
@@ -213,6 +222,7 @@ const Navbar = () => {
                   Contact
                 </a>
               </li>
+              
             </ul>
           </div>
         </div>
