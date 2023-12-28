@@ -4,10 +4,16 @@ import React from "react";
 import { Button } from "../ui/button";
 import useCreateListingModal from "@/hooks/use-create-listing";
 import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
-const Navbar = () => {
+interface NavbarProps {
+  user?: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ user }) => {
   const { onOpen } = useCreateListingModal();
-
+  const router = useRouter()
   return (
     <div className=" w-full p-4 bg-transparent rounded-md">
       <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
@@ -54,30 +60,29 @@ const Navbar = () => {
             id="navbar-multi-level"
           >
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <DropdownMenu>
+              <DropdownMenu>
                 <DropdownMenuTrigger>
-                <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Rent
-                </a>
-              </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Rent
+                    </a>
+                  </li>
                 </DropdownMenuTrigger>
               </DropdownMenu>
 
-
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                Buy
-                </a>
-              </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Buy
+                    </a>
+                  </li>
                 </DropdownMenuTrigger>
               </DropdownMenu>
 
@@ -98,11 +103,21 @@ const Navbar = () => {
                 </a>
               </li>
             </ul>
-            <div className=" flex justify-center items-center ml-4">
-            <Button variant="destructive">
-              Sign Up/ Sign In
-            </Button>
-            </div>
+            {!user && (
+              <div className=" flex justify-between gap-x-2 items-center ml-4 p-5">
+                <Button variant="destructive" onClick={()=>router.push('/sign-in')} >
+                 Sign In
+                </Button>
+                <Button variant="outline" onClick={()=>router.push('/sign-up')} >
+                 Sign Up
+                </Button>
+              </div>
+            )}
+            {user && (
+              <div className=" flex justify-center items-center ml-4 p-5">
+                <UserButton afterSignOutUrl="/" />
+              </div>
+            )}
           </div>
         </div>
       </nav>
