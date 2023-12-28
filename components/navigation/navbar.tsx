@@ -9,7 +9,7 @@ const Navbar = () => {
   const { onOpen } = useCreateListingModal();
 
   return (
-    <div className=" w-full p-4  border-b-[4px]  border-slate-100 mb-3 bg-transparent rounded-md">
+    <div className=" w-full p-4 bg-transparent rounded-md">
       <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a
@@ -50,7 +50,7 @@ const Navbar = () => {
             </svg>
           </button>
           <div
-            className="hidden w-full md:block md:w-auto"
+            className="hidden w-full md:flex md:w-auto  justify-between items-center"
             id="navbar-multi-level"
           >
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
@@ -81,17 +81,6 @@ const Navbar = () => {
                 </DropdownMenuTrigger>
               </DropdownMenu>
 
-
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Services
-                </a>
-              </li>
-
-
               <li>
                 <a
                   href="#"
@@ -100,8 +89,6 @@ const Navbar = () => {
                   Blog
                 </a>
               </li>
-
-
               <li>
                 <a
                   href="#"
@@ -110,8 +97,12 @@ const Navbar = () => {
                   Contact
                 </a>
               </li>
-
             </ul>
+            <div className=" flex justify-center items-center ml-4">
+            <Button variant="destructive">
+              Sign Up/ Sign In
+            </Button>
+            </div>
           </div>
         </div>
       </nav>
