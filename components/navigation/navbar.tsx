@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "../ui/button";
 import useCreateListingModal from "@/hooks/use-create-listing";
-import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { PlusCircle } from "lucide-react";
@@ -72,6 +72,17 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
                     </a>
                   </li>
                 </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>
+                    One
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    One
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    One
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
               </DropdownMenu>
 
               <DropdownMenu>
