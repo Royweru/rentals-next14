@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
 
-export const SearchButton = () => {
+interface SearchButtonProps {
+  desc?: string;
+}
+export const SearchButton: React.FC<SearchButtonProps> = ({ desc }) => {
   return (
     <div className=" flex justify-center items-center w-1/3 h-[300px] bg-slate-50 hover:cursor-pointer hover:opacity-80">
-    buy
-  </div>
-  )
-}
+      {desc}
+    </div>
+  );
+};
