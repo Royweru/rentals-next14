@@ -22,13 +22,30 @@ model Category{
 
 model Listing{
    id String @id @default(uuid())
+   userId String
+   locationValue String
+   rentalPrice Int?
+   purchasePrice Int?
+   title String
+   description String
    categoryId String
+    bathrooms Int
    category Category @relation(fields: [categoryId],references: [id],onDelete: Cascade)
+   images Image[]
    
-
   
    createdAt DateTime @default(now())
    updatedAt DateTime @updatedAt
 
     @@index([categoryId])
+}
+
+
+model Image{
+  id String @id @default(uuid())
+  listingId String
+  listing Listing @relation(fields: [listingId],references: [id])
+   
+  url String
+  @@index([listingId])
 }
