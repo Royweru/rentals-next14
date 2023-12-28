@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,39 +9,28 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import useCreateListingModal from "@/hooks/use-create-listing";
+import Modal from "./modal";
 
-enum STEPS{
-    LOCATION = 1,
-    CATEGORY=2,
-    DETAILS=3,
-    PRICE=4
+enum STEPS {
+  LOCATION = 1,
+  CATEGORY = 2,
+  DETAILS = 3,
+  PRICE = 4,
 }
 
 const CreateListing = () => {
+  const [step, setStep] = useState(STEPS.LOCATION);
+  
   const { isOpen, onClose } = useCreateListingModal();
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className=" bg-gray-200 p-5 w-full overflow-hidden">
-        <DialogHeader className=" pt-4 ">
-          <DialogTitle className=" font-bold font-sans text-xl">
-            Welcome user, let us create our listing
-         </DialogTitle>
-          <DialogDescription>
-            Let us create our first listing and let us go through the steps Let
-            us create our first listing and let us go through the steps Let us
-            create our first listing and let us go through the steps
-          </DialogDescription>
-        </DialogHeader>
-        <div className=" w-full flex flex-col ">
-            <form>
-
-            </form>
-        </div>
-        <DialogFooter>
-           
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Create your own listing and manage it"
+      desc="This is what it looks like this is what it looks like"
+    >
+      Here goes the body
+    </Modal>
   );
 };
 
