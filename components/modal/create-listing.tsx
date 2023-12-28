@@ -14,8 +14,8 @@ const CreateListing = () => {
   const { isOpen, onClose } = useCreateListingModal();
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className=" bg-gray-200 p-0 w-full">
-        <DialogHeader>
+      <DialogContent className=" bg-gray-200 p-5 w-full overflow-hidden">
+        <DialogHeader className=" pt-4 ">
           <DialogTitle>Welcome user, let us create our listing</DialogTitle>
           <DialogDescription>
             Let us create our first listing and let us go through the steps Let
@@ -23,11 +23,9 @@ const CreateListing = () => {
             create our first listing and let us go through the steps
           </DialogDescription>
         </DialogHeader>
-        <div>THis is the</div>
+        
         <DialogFooter>
-            <div className=" font-bold text-xl font-serif ">
-             The fucking end
-            </div>
+           
         </DialogFooter>
       </DialogContent>
     </Dialog>

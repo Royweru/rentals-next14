@@ -6,6 +6,7 @@ import useCreateListingModal from "@/hooks/use-create-listing";
 import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { UserButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { PlusCircle } from "lucide-react";
 
 interface NavbarProps {
   user?: boolean;
@@ -104,7 +105,7 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
               </li>
             </ul>
             {!user && (
-              <div className=" flex justify-between gap-x-2 items-center ml-4 p-5">
+              <div className=" flex justify-between gap-x-2 items-center ml-4 ">
                 <Button variant="destructive" onClick={()=>router.push('/sign-in')} >
                  Sign In
                 </Button>
@@ -114,8 +115,12 @@ const Navbar: React.FC<NavbarProps> = ({ user }) => {
               </div>
             )}
             {user && (
-              <div className=" flex justify-center items-center ml-4 p-5">
+              <div className=" flex justify-between items-center ml-4 gap-x-4">
                 <UserButton afterSignOutUrl="/" />
+                <Button onClick={onOpen} variant="outline">
+                  Create Listing 
+                  <PlusCircle className=" h-4 w-4" />
+                </Button>
               </div>
             )}
           </div>
