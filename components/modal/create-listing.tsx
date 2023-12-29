@@ -59,11 +59,7 @@ const CreateListing = () => {
 
   let bodyContent;
 
-  if(step===STEPS.LOCATION){
-    bodyContent=(
-     <Map />
-    )
-  }
+ 
 
   const actionLabel = useMemo(()=>{
     if(step===STEPS.LOCATION){
@@ -77,6 +73,12 @@ const CreateListing = () => {
     }
     return "NEXT"
   },[step])
+
+  if(step===STEPS.LOCATION){
+    bodyContent=(
+     <Map />
+    )
+  }
   return (
     <Modal
       isOpen={isOpen}
