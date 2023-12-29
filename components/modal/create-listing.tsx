@@ -64,6 +64,19 @@ const CreateListing = () => {
      <Map />
     )
   }
+
+  const actionLabel = useMemo(()=>{
+    if(step===STEPS.LOCATION){
+      return undefined
+    }
+    return "BACK"
+  },[step])
+  const secondaryActionLabel = useMemo(()=>{
+    if(step===STEPS.PRICE){
+      return "CREATE"
+    }
+    return "NEXT"
+  },[step])
   return (
     <Modal
       isOpen={isOpen}
@@ -72,8 +85,8 @@ const CreateListing = () => {
       desc="This is what it looks like this is what it looks like"
       action={onMinus}
       secondaryAction={onAdd}
-      actionLabel="Back"
-      secodaryActionLabel="Next"
+      actionLabel={actionLabel}
+      secodaryActionLabel={secondaryActionLabel}
     >
       <div className=" flex flex-col gap-y-3 w-full">
         {bodyContent}
