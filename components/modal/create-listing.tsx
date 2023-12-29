@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useKenya } from "@/hooks/use-countries";
+import { CountrySelect, CountrySelectValue } from "../inputs/country-select";
 
 enum STEPS {
   LOCATION = 1,
@@ -82,8 +83,8 @@ const CreateListing = () => {
 
   if (step === STEPS.LOCATION) {
     bodyContent = (
-      <>
-        <Form {...form}>
+       <div className=" flex flex-col w-full gap-x-5">
+         <Form {...form}>
           <form onSubmit={() => {}}>
             <FormField
               name="locationValue"
@@ -92,15 +93,25 @@ const CreateListing = () => {
                 <FormItem>
                   <FormLabel>Location:</FormLabel>
                   <FormControl>
-                    
+                    <CountrySelect
+                      onChange={field.onChange  }
+                      
+                    />
                   </FormControl>
                 </FormItem>
               )}
             />
           </form>
         </Form>
+        <div className=" mt-12">
         <Map />
-      </>
+        </div>
+        
+       </div>
+        
+
+        
+     
     );
   }
   return (
@@ -114,7 +125,9 @@ const CreateListing = () => {
       actionLabel={actionLabel}
       secodaryActionLabel={secondaryActionLabel}
     >
-      <div className=" flex flex-col gap-y-3 w-full">{bodyContent}</div>
+      <div className=" flex flex-col gap-y-3 w-full">
+        {bodyContent}
+        </div>
     </Modal>
   );
 };
