@@ -9,20 +9,29 @@ import {
     DialogFooter
 
 } from '../ui/dialog';
+import { Button } from '../ui/button';
 
 interface ModalProps{
     isOpen:boolean,
     title:String,
     desc:string
     onClose:()=>void,
-    children:React.ReactNode
+    children:React.ReactNode,
+    action:()=>void,
+    secondaryAction?:()=>void,
+    actionLabel:string,
+    secodaryActionLabel?:string
 }
 const Modal:React.FC<ModalProps> = ({
     isOpen,
     title,
     desc,
     onClose,
-    children
+    children,
+    action,
+    secondaryAction,
+    actionLabel,
+    secodaryActionLabel
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -36,6 +45,14 @@ const Modal:React.FC<ModalProps> = ({
         </DialogDescription>
       </DialogHeader>
       {children}
+      <DialogFooter className=' w-full flex justify-end items-center gap-x-4'>
+        <Button onClick={action} variant="destructive">
+          {actionLabel}
+        </Button>
+        <Button onClick={secondaryAction} variant="secondary">
+          {secodaryActionLabel}
+        </Button>
+      </DialogFooter>
     </DialogContent>
   </Dialog>
 );
