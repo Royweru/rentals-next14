@@ -7,8 +7,8 @@ const kenyaData = countries.filter((country: any) => country.name.common === 'Ke
 // Map the data for Kenya
 const formattedKenya = kenyaData.map((country: any) => ({
   value: country.cca2,
-  label: country.name.common,
-  flag: country.flag,
+//   label: country.name.common,
+//   flag: country.flag,
   latlng: country.latlng,
   region: country.region,
 }));
