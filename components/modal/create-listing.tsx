@@ -14,14 +14,9 @@ import Modal from "./modal";
 import { useForm } from "react-hook-form";
 import { Map } from "../map";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+
 import { useKenya } from "@/hooks/use-countries";
-import { CountrySelect, CountrySelectValue } from "../inputs/country-select";
+import { CountrySelect } from "../inputs/country-select";
 
 enum STEPS {
   LOCATION = 1,
