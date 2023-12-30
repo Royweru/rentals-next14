@@ -94,7 +94,7 @@ const CreateListing = () => {
                   <FormLabel>Location:</FormLabel>
                   <FormControl>
                     <CountrySelect
-                      onChange={field.onChange  }
+                      onChange={field.onChange}
                       
                     />
                   </FormControl>
