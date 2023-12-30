@@ -1,14 +1,7 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import * as z from "zod";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
+
 import useCreateListingModal from "@/hooks/use-create-listing";
 import Modal from "./modal";
 import { useForm } from "react-hook-form";
@@ -78,7 +71,7 @@ const CreateListing = () => {
 
   if (step === STEPS.LOCATION) {
     bodyContent = (
-       <div className=" flex flex-col w-full gap-x-5">
+       <div className=" flex flex-col w-full">
          <Form {...form}>
           <form onSubmit={() => {}}>
             <FormField
@@ -90,7 +83,7 @@ const CreateListing = () => {
                   <FormControl>
                     <CountrySelect
                       onChange={field.onChange}
-                      
+                     
                     />
                   </FormControl>
                 </FormItem>
