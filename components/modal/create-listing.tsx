@@ -12,10 +12,10 @@ import { useKenya } from "@/hooks/use-countries";
 import { CountrySelect } from "../inputs/country-select";
 
 enum STEPS {
-  LOCATION = 1,
-  CATEGORY = 2,
-  DETAILS = 3,
-  PRICE = 4,
+  LOCATION = 0,
+  CATEGORY = 1,
+  DETAILS = 2,
+  PRICE = 3,
 }
 const formSchema = z.object({
   categoryId: z.string().min(1),
@@ -54,7 +54,7 @@ const CreateListing = () => {
 
   const { isOpen, onClose } = useCreateListingModal();
 
-  let bodyContent;
+ 
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.LOCATION) {
@@ -69,7 +69,7 @@ const CreateListing = () => {
     return "NEXT";
   }, [step]);
 
-  if (step === STEPS.LOCATION) {
+  let bodyContent;
     bodyContent = (
        <div className=" flex flex-col w-full">
          <Form {...form}>
@@ -83,7 +83,7 @@ const CreateListing = () => {
                   <FormControl>
                     <CountrySelect
                       onChange={field.onChange}
-                     
+                      
                     />
                   </FormControl>
                 </FormItem>
@@ -94,14 +94,17 @@ const CreateListing = () => {
         <div className=" mt-12">
         <Map />
         </div>
-        
-       </div>
-        
-
-        
-     
+       </div>      
     );
-  }
+
+    if(step===STEPS.CATEGORY){
+      bodyContent=(
+        <div className=" flex flex-col gap-y-4">
+       
+        </div>
+      )
+    }
+  
   return (
     <Modal
       isOpen={isOpen}
@@ -113,9 +116,9 @@ const CreateListing = () => {
       actionLabel={actionLabel}
       secodaryActionLabel={secondaryActionLabel}
     >
-      <div className=" flex flex-col gap-y-3 w-full">
+      
         {bodyContent}
-        </div>
+       
     </Modal>
   );
 };
