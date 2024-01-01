@@ -12,8 +12,8 @@ import { Button } from "../ui/button";
 
 interface ModalProps {
   isOpen: boolean;
-  title: String;
-  desc: string;
+  title?: String;
+  desc?: string;
   onClose: () => void;
   children: React.ReactNode;
   action?: () => void;

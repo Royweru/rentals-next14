@@ -54,8 +54,6 @@ const CreateListing = () => {
 
   const { isOpen, onClose } = useCreateListingModal();
 
- 
-
   const actionLabel = useMemo(() => {
     if (step === STEPS.LOCATION) {
       return undefined;
@@ -70,55 +68,84 @@ const CreateListing = () => {
   }, [step]);
 
   let bodyContent;
-    bodyContent = (
-       <div className=" flex flex-col w-full">
-         <Form {...form}>
-          <form onSubmit={() => {}}>
-            <FormField
-              name="locationValue"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Location:</FormLabel>
-                  <FormControl>
-                    <CountrySelect
-                      onChange={field.onChange}
-                      
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
-        <div className=" mt-12">
-        <Map />
-        </div>
-       </div>      
-    );
+  let title;
+  let desc;
 
-    if(step===STEPS.CATEGORY){
-      bodyContent=(
-        <div className=" flex flex-col gap-y-4">
-       
-        </div>
-      )
-    }
-  
+  title = "Welcome to the first step of creating a listing ";
+  desc = "Please choose a location";
+  bodyContent = (
+    <div className=" flex flex-col w-full">
+      <Form {...form}>
+        <form onSubmit={() => {}}>
+          <FormField
+            name="locationValue"
+            control={form.control}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Location:</FormLabel>
+                <FormControl>
+                  <CountrySelect onChange={field.onChange} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+      <div className=" mt-12">
+        <Map />
+      </div>
+    </div>
+  );
+
+  if (step === STEPS.CATEGORY) {
+    title =
+      "Please select the caategory in which your rentals or house belongs";
+     bodyContent=
+    <div className=" flex flex-col gap-y-4 w-full">
+       <div>
+        1 bedroom
+       </div>
+       <div>
+        2 bedroom
+       </div>
+       <div>
+        3 bedroom
+       </div>
+    </div>;
+  }
+  if (step === STEPS.DETAILS) {
+    title = "Give a little bit of more detais regarding you rental";
+    bodyContent=
+    <div className=" flex flex-col gap-y-4 w-full">
+        more details
+    </div>;
+  }
+  if (step === STEPS.PRICE) {
+    title = "What's the price range for your rental";
+    
+    bodyContent=
+    <div className=" w-full flex flex-col gap-y-3 h-full">
+         <div>
+          one
+         </div>
+         <div>
+          two
+         </div>
+    </div>
+  }
+
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="Create your own listing and manage it"
-      desc="This is what it looks like this is what it looks like"
+      title={title}
+      desc={desc}
       action={onMinus}
       secondaryAction={onAdd}
       actionLabel={actionLabel}
       secodaryActionLabel={secondaryActionLabel}
     >
-      
-        {bodyContent}
-       
+      {bodyContent}
     </Modal>
   );
 };
