@@ -235,9 +235,9 @@ const CreateListing:React.FC<CreateListingProps> = ({
   }
   if (step === STEPS.IMAGES) {
     title = "Images of your place";
-    desc = "";
+    desc = "Upload a few photos to display to your customers, pictures must include each and every different room in your place";
     bodyContent = (
-      <div className=" w-full flex flex-col gap-y-3 h-full">
+      <div className=" w-full flex flex-col items-center gap-y-3 h-full">
         <FormField 
           name="images"
           control={form.control}
@@ -245,12 +245,13 @@ const CreateListing:React.FC<CreateListingProps> = ({
             <FormItem>
               <FormControl>
                <ImageUpload
-                  value={field.value.map((image)=>image.url)}
+                   value={field.value?.map((image)=>image.url)}
                   onChange={(url:any)=>field.onChange([...field.value,{url}])}
                   onRemove = {(url:any)=>field.onChange([...field.value.filter((currrent)=>currrent.url!==url)])}
                   disabled={isLoading}
                   />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
           />
