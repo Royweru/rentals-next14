@@ -9,7 +9,22 @@ import { Map } from "../map";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 
 import { useKenya } from "@/hooks/use-countries";
-import { CountrySelect } from "../inputs/country-select";
+import { Button } from "../ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 
 enum STEPS {
   LOCATION = 0,
@@ -75,22 +90,32 @@ const CreateListing = () => {
   desc = "Please choose a location";
   bodyContent = (
     <div className=" flex flex-col w-full">
-      <Form {...form}>
-        <form onSubmit={() => {}}>
-          <FormField
-            name="locationValue"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Location:</FormLabel>
-                <FormControl>
-                  <CountrySelect onChange={field.onChange} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        </form>
-      </Form>
+      <FormField
+        name="locationValue"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Location:</FormLabel>
+            <Select>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue
+                    defaultValue={field.value}
+                    placeholder="Select a region"
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {countries.map((country) => (
+                    <SelectItem key={country.value} value={country.value}>
+                      {country.region}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </FormControl>
+            </Select>
+          </FormItem>
+        )}
+      />
       <div className=" mt-12">
         <Map />
       </div>
@@ -100,53 +125,58 @@ const CreateListing = () => {
   if (step === STEPS.CATEGORY) {
     title =
       "Please select the caategory in which your rentals or house belongs";
-     bodyContent=
-    <div className=" flex flex-col gap-y-4 w-full">
-       <div>
-        1 bedroom
-       </div>
-       <div>
-        2 bedroom
-       </div>
-       <div>
-        3 bedroom
-       </div>
-    </div>;
+    desc = "";
+    bodyContent = (
+      <div className=" flex flex-col gap-y-4 w-full">
+        <div>1 bedroom</div>
+        <div>2 bedroom</div>
+        <div>3 bedroom</div>
+      </div>
+    );
   }
   if (step === STEPS.DETAILS) {
     title = "Give a little bit of more detais regarding you rental";
-    bodyContent=
-    <div className=" flex flex-col gap-y-4 w-full">
-        more details
-    </div>;
+    desc = "";
+    bodyContent = (
+      <div className=" flex flex-col gap-y-4 w-full">more details</div>
+    );
   }
   if (step === STEPS.PRICE) {
     title = "What's the price range for your rental";
-    
-    bodyContent=
-    <div className=" w-full flex flex-col gap-y-3 h-full">
-         <div>
-          one
-         </div>
-         <div>
-          two
-         </div>
-    </div>
+    desc = "";
+    bodyContent = (
+      <div className=" w-full flex flex-col gap-y-3 h-full">
+        <div>one</div>
+        <div>two</div>
+      </div>
+    );
   }
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={title}
-      desc={desc}
-      action={onMinus}
-      secondaryAction={onAdd}
-      actionLabel={actionLabel}
-      secodaryActionLabel={secondaryActionLabel}
-    >
-      {bodyContent}
-    </Modal>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className=" p-0 bg-white">
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{desc}</DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form action="" >
+            {bodyContent}
+          </form>
+        </Form>
+
+        <DialogFooter className=" w-full justify-end items-center">
+          {actionLabel && (
+            <Button onClick={onMinus} variant="destructive">
+              {actionLabel}
+            </Button>
+          )}
+          <Button onClick={onAdd} variant="secondary">
+            {secondaryActionLabel}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 
