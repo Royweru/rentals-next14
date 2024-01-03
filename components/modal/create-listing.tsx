@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { Map } from "../map";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 
-import { useKenya } from "@/hooks/use-countries";
+import { useCountries } from "@/hooks/use-countries";
 import { Button } from "../ui/button";
 import {
   Select,
@@ -44,7 +44,7 @@ const formSchema = z.object({
 });
 
 const CreateListing = () => {
-  const { getAll } = useKenya();
+  const { getAll } = useCountries();
   const countries = getAll();
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -82,12 +82,14 @@ const CreateListing = () => {
     return "NEXT";
   }, [step]);
 
-  const onSubmit = (values:z.infer<typeof formSchema>)=>{
-     if(step!==STEPS.PRICE){
-      return onAdd
-     }
-      console.log(values)
-  }
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    if (step !== STEPS.PRICE) {
+      return onAdd;
+    }
+    console.log(values);
+  };
+
+  const isLoading = form.formState.isSubmitting;
   let bodyContent;
   let title;
   let desc;
@@ -101,16 +103,24 @@ const CreateListing = () => {
         control={form.control}
         render={({ field }) => (
           <FormItem>
-            <Select>
+            <Select
+              disabled={isLoading}
+              value={field.value}
+              onValueChange={field.onChange}
+              defaultValue={field.value}
+            >
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder="select a region" />
+                  <SelectValue
+                    placeholder="select a region"
+                    defaultValue={field.value}
+                  />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
                 {countries.map((country) => (
                   <SelectItem value={country.value} key={country.value}>
-                    {country.value}
+                    {country.label}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -164,7 +174,7 @@ const CreateListing = () => {
         <Form {...form}>
           <form action="" onSubmit={form.handleSubmit(onSubmit)}>
             {bodyContent}
-            </form>
+          </form>
         </Form>
 
         <DialogFooter className=" w-full justify-end items-center">
@@ -176,9 +186,9 @@ const CreateListing = () => {
           <Button onClick={onAdd} variant="secondary">
             {secondaryActionLabel}
           </Button>
-          {step===STEPS.PRICE&&(
+          {step === STEPS.PRICE && (
             <Button type="submit" variant="ghost">
-             SUBMIT
+              SUBMIT
             </Button>
           )}
         </DialogFooter>
