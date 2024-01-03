@@ -6,6 +6,7 @@ import useCreateListingModal from "@/hooks/use-create-listing";
 
 import { useForm } from "react-hook-form";
 import { Map } from "../map";
+import { ImageUpload } from "../inputs/image-upload";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 
 import { useCountries } from "@/hooks/use-countries";
@@ -243,7 +244,12 @@ const CreateListing:React.FC<CreateListingProps> = ({
           render={({field})=>(
             <FormItem>
               <FormControl>
-               
+               <ImageUpload
+                  value={field.value.map((image)=>image.url)}
+                  onChange={(url:any)=>field.onChange([...field.value,{url}])}
+                  onRemove = {(url:any)=>field.onChange([...field.value.filter((currrent)=>currrent.url!==url)])}
+                  disabled={isLoading}
+                  />
               </FormControl>
             </FormItem>
           )}
