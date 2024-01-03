@@ -6,7 +6,7 @@ import useCreateListingModal from "@/hooks/use-create-listing";
 
 import { useForm } from "react-hook-form";
 import { Map } from "../map";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 
 import { useCountries } from "@/hooks/use-countries";
 import { Button } from "../ui/button";
@@ -26,6 +26,7 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Category } from "@prisma/client";
+import { Input } from "../ui/input";
 
 interface CreateListingProps{
   categories?:Category[]
@@ -35,7 +36,8 @@ enum STEPS {
   LOCATION = 0,
   CATEGORY = 1,
   DETAILS = 2,
-  PRICE = 3,
+  IMAGES=3,
+  PRICE = 4,
 }
 
 
@@ -176,11 +178,81 @@ const CreateListing:React.FC<CreateListingProps> = ({
     title = "Give a little bit of more detais regarding you rental";
     desc = "";
     bodyContent = (
-      <div className=" flex flex-col gap-y-4 w-full">more details</div>
+      <div className=" flex flex-col gap-y-4 w-full">
+        <FormField
+         name="title"
+         control={form.control}
+         render={({field})=>(
+          <FormItem>
+            <FormLabel>
+              Heading you would like to give your place
+            </FormLabel>
+            <FormDescription>
+              e.g PentHouse in GTC residentials..
+            </FormDescription>
+            <FormControl>
+               <Input placeholder="title for your place" disabled={isLoading} {...field}/>
+           </FormControl>
+          </FormItem>
+         )}
+         />
+          <FormField
+         name="description"
+         control={form.control}
+         render={({field})=>(
+          <FormItem>
+            <FormLabel>
+              A short description of your place
+            </FormLabel>
+            <FormDescription>
+              e.g Located few kilometers from the CBD best suited for urban stay
+            </FormDescription>
+            <FormControl>
+               <Input placeholder="description for your place" disabled={isLoading} {...field}/>
+           </FormControl>
+           <FormMessage />
+          </FormItem>
+         )}
+         />
+          <FormField
+         name="bathrooms"
+         control={form.control}
+         render={({field})=>(
+          <FormItem>
+            <FormLabel>
+            Number of bathrooms
+            </FormLabel>
+            <FormControl>
+               <Input type="number" placeholder="title for your place" disabled={isLoading} {...field}/>
+           </FormControl>
+           <FormMessage />
+          </FormItem>
+         )}
+         />
+      </div>
+    );
+  }
+  if (step === STEPS.IMAGES) {
+    title = "Images of your place";
+    desc = "";
+    bodyContent = (
+      <div className=" w-full flex flex-col gap-y-3 h-full">
+        <FormField 
+          name="images"
+          control={form.control}
+          render={({field})=>(
+            <FormItem>
+              <FormControl>
+               
+              </FormControl>
+            </FormItem>
+          )}
+          />
+      </div>
     );
   }
   if (step === STEPS.PRICE) {
-    title = "What's the price range for your rental";
+    title = "What's the price range for your rentals";
     desc = "";
     bodyContent = (
       <div className=" w-full flex flex-col gap-y-3 h-full">
