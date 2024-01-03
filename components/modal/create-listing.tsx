@@ -82,6 +82,12 @@ const CreateListing = () => {
     return "NEXT";
   }, [step]);
 
+  const onSubmit = (values:z.infer<typeof formSchema>)=>{
+     if(step!==STEPS.PRICE){
+      return onAdd
+     }
+      console.log(values)
+  }
   let bodyContent;
   let title;
   let desc;
@@ -95,23 +101,19 @@ const CreateListing = () => {
         control={form.control}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Location:</FormLabel>
             <Select>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue
-                    defaultValue={field.value}
-                    placeholder="Select a region"
-                  />
+                  <SelectValue placeholder="select a region" />
                 </SelectTrigger>
-                <SelectContent>
-                  {countries.map((country) => (
-                    <SelectItem key={country.value} value={country.value}>
-                      {country.region}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
               </FormControl>
+              <SelectContent>
+                {countries.map((country) => (
+                  <SelectItem value={country.value} key={country.value}>
+                    {country.value}
+                  </SelectItem>
+                ))}
+              </SelectContent>
             </Select>
           </FormItem>
         )}
@@ -154,15 +156,15 @@ const CreateListing = () => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className=" p-0 bg-white">
+      <DialogContent className=" p-5 bg-white">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{desc}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form action="" >
+          <form action="" onSubmit={form.handleSubmit(onSubmit)}>
             {bodyContent}
-          </form>
+            </form>
         </Form>
 
         <DialogFooter className=" w-full justify-end items-center">
@@ -174,6 +176,11 @@ const CreateListing = () => {
           <Button onClick={onAdd} variant="secondary">
             {secondaryActionLabel}
           </Button>
+          {step===STEPS.PRICE&&(
+            <Button type="submit" variant="ghost">
+             SUBMIT
+            </Button>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
