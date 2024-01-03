@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs";
 
+import prisma from "@/lib/prismadb"
+
 import "./globals.css";
 import ModalProvider from "@/components/providers/modal-provider";
 import Navbar from "@/components/navigation/navbar";
@@ -20,6 +22,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const booleanUser = await currentUser();
+  const categories = await prisma.category.findMany()
   let user;
   if (booleanUser) {
     user = true;
@@ -32,7 +35,7 @@ export default async function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <Navbar user={user} />
-          <ModalProvider />
+          <ModalProvider categories={categories} />
           {children}
         </body>
       </html>

@@ -1,8 +1,14 @@
 "use client"
 import React,{useState,useEffect} from 'react'
 import CreateListing from '../modal/create-listing'
+import{Category} from "@prisma/client"
 
-const ModalProvider = () => {
+interface ModalProviderProps{
+    categories?:Category[]
+}
+const ModalProvider:React.FC<ModalProviderProps> = ({
+    categories
+}) => {
 
     const [isMounted,setIsMounted] = useState(false)
 
@@ -15,7 +21,7 @@ const ModalProvider = () => {
     }
   return (
   <>
-   <CreateListing />
+   <CreateListing categories={categories}/>
   </>
   )
 }

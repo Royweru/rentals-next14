@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 import * as z from "zod";
 
 import useCreateListingModal from "@/hooks/use-create-listing";
-import Modal from "./modal";
+
 import { useForm } from "react-hook-form";
 import { Map } from "../map";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
@@ -25,6 +25,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
+import { Category } from "@prisma/client";
+
+interface CreateListingProps{
+  categories?:Category[]
+}
 
 enum STEPS {
   LOCATION = 0,
@@ -32,6 +37,8 @@ enum STEPS {
   DETAILS = 2,
   PRICE = 3,
 }
+
+
 const formSchema = z.object({
   categoryId: z.string().min(1),
   locationValue: z.string().min(1),
@@ -43,7 +50,9 @@ const formSchema = z.object({
   description: z.string().min(1),
 });
 
-const CreateListing = () => {
+const CreateListing:React.FC<CreateListingProps> = ({
+  categories
+}) => {
   const { getAll } = useCountries();
   const countries = getAll();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -112,7 +121,7 @@ const CreateListing = () => {
               <FormControl>
                 <SelectTrigger>
                   <SelectValue
-                    placeholder="select a region"
+                    placeholder="select a Country"
                     defaultValue={field.value}
                   />
                 </SelectTrigger>
@@ -139,12 +148,29 @@ const CreateListing = () => {
       "Please select the caategory in which your rentals or house belongs";
     desc = "";
     bodyContent = (
-      <div className=" flex flex-col gap-y-4 w-full">
-        <div>1 bedroom</div>
-        <div>2 bedroom</div>
-        <div>3 bedroom</div>
-      </div>
-    );
+     <FormField
+       name="categoryId"
+       control={form.control}
+       render={({field})=>(
+        <FormItem>
+           <Select>
+             <FormControl>
+                <SelectTrigger>
+                  <SelectValue defaultValue={field.value} placeholder="choose a category" />
+                </SelectTrigger>
+             </FormControl>
+             <SelectContent>
+              {categories?.map(category=>(
+                <SelectItem key={category.id} value={category.id} className=" p-4">
+                     {category.name}
+                </SelectItem>
+              ))}
+             </SelectContent>
+            </Select>  
+        </FormItem>
+       )}
+       />
+    )
   }
   if (step === STEPS.DETAILS) {
     title = "Give a little bit of more detais regarding you rental";
