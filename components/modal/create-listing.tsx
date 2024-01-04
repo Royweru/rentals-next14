@@ -7,7 +7,15 @@ import useCreateListingModal from "@/hooks/use-create-listing";
 import { useForm } from "react-hook-form";
 import { Map } from "../map";
 import { ImageUpload } from "../inputs/image-upload";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 
 import { useCountries } from "@/hooks/use-countries";
 import { Button } from "../ui/button";
@@ -29,18 +37,17 @@ import {
 import { Category } from "@prisma/client";
 import { Input } from "../ui/input";
 
-interface CreateListingProps{
-  categories?:Category[]
+interface CreateListingProps {
+  categories?: Category[];
 }
 
 enum STEPS {
   LOCATION = 0,
   CATEGORY = 1,
   DETAILS = 2,
-  IMAGES=3,
+  IMAGES = 3,
   PRICE = 4,
 }
-
 
 const formSchema = z.object({
   categoryId: z.string().min(1),
@@ -53,9 +60,7 @@ const formSchema = z.object({
   description: z.string().min(1),
 });
 
-const CreateListing:React.FC<CreateListingProps> = ({
-  categories
-}) => {
+const CreateListing: React.FC<CreateListingProps> = ({ categories }) => {
   const { getAll } = useCountries();
   const countries = getAll();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -151,29 +156,36 @@ const CreateListing:React.FC<CreateListingProps> = ({
       "Please select the caategory in which your rentals or house belongs";
     desc = "";
     bodyContent = (
-     <FormField
-       name="categoryId"
-       control={form.control}
-       render={({field})=>(
-        <FormItem>
-           <Select>
-             <FormControl>
+      <FormField
+        name="categoryId"
+        control={form.control}
+        render={({ field }) => (
+          <FormItem>
+            <Select>
+              <FormControl>
                 <SelectTrigger>
-                  <SelectValue defaultValue={field.value} placeholder="choose a category" />
+                  <SelectValue
+                    defaultValue={field.value}
+                    placeholder="choose a category"
+                  />
                 </SelectTrigger>
-             </FormControl>
-             <SelectContent>
-              {categories?.map(category=>(
-                <SelectItem key={category.id} value={category.id} className=" p-4">
-                     {category.name}
-                </SelectItem>
-              ))}
-             </SelectContent>
-            </Select>  
-        </FormItem>
-       )}
-       />
-    )
+              </FormControl>
+              <SelectContent>
+                {categories?.map((category) => (
+                  <SelectItem
+                    key={category.id}
+                    value={category.id}
+                    className=" p-4"
+                  >
+                    {category.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </FormItem>
+        )}
+      />
+    );
   }
   if (step === STEPS.DETAILS) {
     title = "Give a little bit of more detais regarding you rental";
@@ -181,80 +193,101 @@ const CreateListing:React.FC<CreateListingProps> = ({
     bodyContent = (
       <div className=" flex flex-col gap-y-4 w-full">
         <FormField
-         name="title"
-         control={form.control}
-         render={({field})=>(
-          <FormItem>
-            <FormLabel>
-              Heading you would like to give your place
-            </FormLabel>
-            <FormDescription>
-              e.g PentHouse in GTC residentials..
-            </FormDescription>
-            <FormControl>
-               <Input placeholder="title for your place" disabled={isLoading} {...field}/>
-           </FormControl>
-          </FormItem>
-         )}
-         />
-          <FormField
-         name="description"
-         control={form.control}
-         render={({field})=>(
-          <FormItem>
-            <FormLabel>
-              A short description of your place
-            </FormLabel>
-            <FormDescription>
-              e.g Located few kilometers from the CBD best suited for urban stay
-            </FormDescription>
-            <FormControl>
-               <Input placeholder="description for your place" disabled={isLoading} {...field}/>
-           </FormControl>
-           <FormMessage />
-          </FormItem>
-         )}
-         />
-          <FormField
-         name="bathrooms"
-         control={form.control}
-         render={({field})=>(
-          <FormItem>
-            <FormLabel>
-            Number of bathrooms
-            </FormLabel>
-            <FormControl>
-               <Input type="number" placeholder="title for your place" disabled={isLoading} {...field}/>
-           </FormControl>
-           <FormMessage />
-          </FormItem>
-         )}
-         />
+          name="title"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Heading you would like to give your place</FormLabel>
+              <FormDescription>
+                e.g PentHouse in GTC residentials..
+              </FormDescription>
+              <FormControl>
+                <Input
+                  placeholder="title for your place"
+                  disabled={isLoading}
+                  {...field}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="description"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>A short description of your place</FormLabel>
+              <FormDescription>
+                e.g Located few kilometers from the CBD best suited for urban
+                stay
+              </FormDescription>
+              <FormControl>
+                <Input
+                  placeholder="description for your place"
+                  disabled={isLoading}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          name="bathrooms"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Number of bathrooms</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder="title for your place"
+                  disabled={isLoading}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
     );
   }
   if (step === STEPS.IMAGES) {
     title = "Images of your place";
-    desc = "Upload a few photos to display to your customers, pictures must include each and every different room in your place";
+    desc =
+      "Upload a few photos to display to your customers, pictures must include each and every different room in your place";
     bodyContent = (
       <div className=" w-full flex flex-col items-center gap-y-3 h-full">
-        <FormField 
+        <FormField
           name="images"
           control={form.control}
-          render={({field})=>(
+          render={({ field }) => (
             <FormItem>
               <FormControl>
-               <ImageUpload
-                   value={field.value?.map((image)=>image.url)}
-                  onChange={(url:any)=>field.onChange([...field.value,{url}])}
-                  onRemove = {(url:any)=>field.onChange([...field.value.filter((currrent)=>currrent.url!==url)])}
+                <ImageUpload
+                  value={
+                    Array.isArray(field.value)
+                      ? field.value.map((image) => image.url)
+                      : []
+                  }
+                  onChange={(url: any) =>
+                    field.onChange([...(field.value || []), { url }])
+                  }
+                  onRemove={(url: any) =>
+                    field.onChange([
+                      ...(field.value || []).filter(
+                        (current) => current.url !== url
+                      ),
+                    ])
+                  }
                   disabled={isLoading}
-                  />
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-          />
+        />
       </div>
     );
   }
