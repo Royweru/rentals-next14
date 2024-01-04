@@ -5,8 +5,10 @@ import * as z from "zod";
 import useCreateListingModal from "@/hooks/use-create-listing";
 
 import { useForm } from "react-hook-form";
-import { Map } from "../map";
+//@ts-ignore
+
 import { ImageUpload } from "../inputs/image-upload";
+import dynamic from "next/dynamic";
 import {
   Form,
   FormControl,
@@ -37,6 +39,7 @@ import {
 import { Category } from "@prisma/client";
 import { Input } from "../ui/input";
 
+
 interface CreateListingProps {
   categories?: Category[];
 }
@@ -62,6 +65,11 @@ const formSchema = z.object({
 
 const CreateListing: React.FC<CreateListingProps> = ({ categories }) => {
   const { getAll } = useCountries();
+
+  // const Map = dynamic(() => import('@/components/map'), {
+  //   ssr: false,
+  // }) as React.ComponentType<{}>
+
   const countries = getAll();
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
@@ -146,7 +154,7 @@ const CreateListing: React.FC<CreateListingProps> = ({ categories }) => {
         )}
       />
       <div className=" mt-12">
-        <Map />
+        {/* <Map /> */}
       </div>
     </div>
   );
