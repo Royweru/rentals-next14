@@ -33,6 +33,9 @@ export default async function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <head>
+          <link rel="shortcut icon" href="/images/logo.jpg" type="image/x-icon" />
+        </head>
         <body className={inter.className}>
           <Navbar user={user} />
           <ModalProvider categories={categories} />
